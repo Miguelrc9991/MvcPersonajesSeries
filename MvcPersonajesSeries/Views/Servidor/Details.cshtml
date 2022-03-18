@@ -1,0 +1,47 @@
+﻿@model Serie
+
+@{
+    ViewData["Title"] = "Details";
+}
+
+<h1>Details</h1>
+
+<div>
+    <h4>Serie</h4>
+    <hr />
+    <dl class="row">
+        <dt class = "col-sm-2">
+Id Serie        </dt>
+        <dd class = "col-sm-10">
+            @Model.IdSerie
+        </dd>
+        <dt class = "col-sm-2">
+Nombre        </dt>
+        <dd class="col-sm-10">
+            @Model.NombreSerie
+        </dd>
+        <dt class = "col-sm-2">
+imagen        </dt>
+        <dt></dt>
+        <dd class = "col-sm-10">
+            <img src="@Model.Imagen" style="width:250px" />
+        </dd>
+        <dt class = "col-sm-2">
+Puntuación        </dt>
+        <dd class="col-sm-10">
+            @Model.Puntuacion
+        </dd>
+        <dt class = "col-sm-2">
+Año        </dt>
+        <dd class="col-sm-10">
+            @Model.Año
+        </dd>
+        <dd>
+            <a class="btn btn-info" asp-area="" asp-controller="Servidor" asp-action="GetPersonajes" asp-route-idserie="@Model.IdSerie">Personajes</a>
+        </dd>
+    </dl>
+</div>
+<div>
+    @Html.ActionLink("Edit", "Edit", new { /* id = Model.PrimaryKey */ }) |
+    <a asp-action="Index">Back to List</a>
+</div>

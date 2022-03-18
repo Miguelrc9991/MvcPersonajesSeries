@@ -1,0 +1,53 @@
+﻿@model MvcPersonajesSeries.Models.Serie
+
+@{
+    ViewData["Title"] = "EditSerie";
+}
+
+<h1>EditSerie</h1>
+
+<h4>Serie</h4>
+<hr />
+<div class="row">
+    <div class="col-md-4">
+        <form asp-action="EditSerie">
+            <div asp-validation-summary="ModelOnly" class="text-danger"></div>
+            <div class="form-group">
+                <label asp-for="IdSerie" class="control-label"></label>
+                <input asp-for="IdSerie" class="form-control" />
+                <span asp-validation-for="IdSerie" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <label asp-for="NombreSerie" class="control-label"></label>
+                <input asp-for="NombreSerie" class="form-control" />
+                <span asp-validation-for="NombreSerie" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <label asp-for="Imagen" class="control-label"></label>
+                <input asp-for="Imagen" class="form-control" />
+                <span asp-validation-for="Imagen" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <label asp-for="Puntuacion" class="control-label"></label>
+                <input asp-for="Puntuacion" class="form-control" />
+                <span asp-validation-for="Puntuacion" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <label asp-for="Año" class="control-label"></label>
+                <input asp-for="Año" class="form-control" />
+                <span asp-validation-for="Año" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <input type="submit" value="Save" class="btn btn-primary" />
+            </div>
+        </form>
+    </div>
+</div>
+
+<div>
+    <a asp-action="Index">Back to List</a>
+</div>
+
+@section Scripts {
+    @{await Html.RenderPartialAsync("_ValidationScriptsPartial");}
+}

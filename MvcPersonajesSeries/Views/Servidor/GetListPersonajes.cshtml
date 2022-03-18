@@ -1,0 +1,50 @@
+﻿@model IEnumerable<MvcPersonajesSeries.Models.Personaje>
+
+@{
+    ViewData["Title"] = "GetListPersonajes";
+}
+
+<h1>GetListPersonajes</h1>
+
+
+<table class="table">
+    <thead>
+        <tr>
+            <th>
+                @Html.DisplayNameFor(model => model.IdPersonaje)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.NombrePersonaje)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.Imagen)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.IdSerie)
+            </th>
+            <th></th>
+        </tr>
+    </thead>
+    <tbody>
+@foreach (var item in Model) {
+        <tr>
+            <td>
+                @Html.DisplayFor(modelItem => item.IdPersonaje)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.NombrePersonaje)
+            </td>
+            <td>
+                <img src="@Html.DisplayFor(modelItem => item.Imagen)
+" style="width:150px" />
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.IdSerie)
+            </td>
+            <td>
+                <a class="btn btn-danger" asp-area="" asp-controller="Servidor" asp-action="Delete" asp-route-idpersonaje="@item.IdPersonaje">Eliminar</a>
+            </td>
+        </tr>
+}
+    </tbody>
+</table>

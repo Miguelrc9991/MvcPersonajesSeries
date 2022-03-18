@@ -1,0 +1,58 @@
+﻿@model IEnumerable<MvcPersonajesSeries.Models.Serie>
+
+@{
+    ViewData["Title"] = "Index";
+}
+
+<h1>Series</h1>
+
+
+<table class="table">
+    <thead>
+        <tr>
+            <th>
+                @Html.DisplayNameFor(model => model.IdSerie)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.NombreSerie)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.Imagen)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.Puntuacion)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.Año)
+            </th>
+            <th></th>
+        </tr>
+    </thead>
+    <tbody>
+@foreach (var item in Model) {
+        <tr>
+            <td>
+                @Html.DisplayFor(modelItem => item.IdSerie)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.NombreSerie)
+            </td>
+            <td>
+                <img src="@item.Imagen" style="width:150px;" />
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.Puntuacion)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.Año)
+            </td>
+            <td>
+                <a class="btn btn-info" asp-area="" asp-controller="Servidor" asp-action="Details" asp-route-idserie="@item.IdSerie">Detalles</a>
+            </td>
+            <td>
+                <a class="btn btn-info" asp-area="" asp-controller="Servidor" asp-action="EditSerie"asp-route-idserie="@item.IdSerie">Edit</a>
+            </td>
+        </tr>
+}
+    </tbody>
+</table>

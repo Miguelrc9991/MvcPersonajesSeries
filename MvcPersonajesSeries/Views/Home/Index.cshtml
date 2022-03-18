@@ -1,0 +1,162 @@
+﻿@{
+    ViewData["Title"] = "Home Page";
+}
+
+@section Scripts{
+    <script>
+        var urlApi = "https://apipersonajesseriesmrc.azurewebsites.net/";
+        $(document).ready(function () {
+            cargarSeries();
+            $("#botoninsert").click(function () {
+                var id = parseInt($("#cajaid").val());
+                var nombre = $("#cajanombre").val();
+                var imagen = $("#cajaimagen").val();
+                var puntuacion = $("#cajapuntuacion").val();
+                var año = parseInt($("#cajaaño").val());
+
+                var serie = new Object();
+                serie.idSerie = parseInt(id);
+                serie.nombreSerie = nombre;
+                serie.imagen = imagen;
+                serie.puntuacion = parseInt(puntuacion);
+                serie.año = parseInt(año);
+
+
+
+                var json = JSON.stringify(serie);
+                var request = "/api/Series";
+                $.ajax({
+                    url: urlApi + request
+                    , type: "POST"
+                    , data: json
+                    , contentType: "application/json"
+                    , success: function () {
+                        cargarSeries();
+                    }
+                });
+            });
+
+
+            $("#botondelete").click(function () {
+                var id = parseInt($("#cajaid").val());
+                var request = "/api/Series/" + id;
+                $.ajax({
+                    url: urlApi + request
+                    , type: "DELETE"
+                    , success: function () {
+                        cargarSeries();
+                    }
+                });
+            });
+            $("#buscarpersonajes").click(function () {
+                var id = parseInt($("#cajaid").val());
+
+                var request = "/api/Series/" + id;
+                $.ajax({
+                    url: urlApi + request
+                    , type: "GET"
+                    , success: function () {
+                        buscarPersonaje(id);
+                    }
+                });
+            });
+           
+        });
+        function buscarPersonaje(id) {
+            var request = "/api/Series/" + id;
+            $.ajax({
+                url: urlApi + request
+                , method: "GET"
+                , dataType: "json"
+                , success: function (data) {
+                    var html = "";
+                    $.each(data, function (index, personaje) {
+                        html += "<tr>";
+                        html += "<td>" + personaje.IdPersonaje + "</td>";
+                        html += "<td>" + personaje.NombrePersonaje + "</td>";
+                        html += "<td><img src='" + personaje.Imagen + "' style='width: 150px' </td>";
+                        html += "<td>" + personaje.IdSerie + "</td>";
+
+                        html += "</tr>";
+                    });
+                    $("#tablaPersonajes tbody").html(html);
+                }
+            });
+
+        }
+        function cargarSeries() {
+            var request = "/api/Series";
+            $.ajax({
+                url: urlApi + request
+                , method: "GET"
+                , dataType: "json"
+                , success: function (data) {
+                   
+                   
+                    $("#tablaSeries tbody").html("");
+                    $.each(data, function (index, serie) {
+                        var tr = $("<tr>");
+                        var tdid = $("<td>", {
+                            "text": serie.idSerie
+                        });
+                        var tdnombre = $("<td>", {
+                            "text": erie.nombreSerie
+                        });
+                        var imgFoto = $("<img>", {
+                            "src": serie.imagen,
+                            "width": "300"
+                        });
+                        var tdpuntuacion = $("<td>", {
+                            "text": serie.puntuacion
+                        });
+                        var tdanio = $("<td>", {
+                            "text": serie.año
+                        });
+                        tdImagen.append(imgFoto);
+                        tr.append(tdid).append(tdnombre).append(tdImagen).append(tdpuntuacion).append(tdanio);
+                        $("#tablaSeries tbody").append(tr);
+
+                    });
+                }
+            });
+        }
+    </script>
+    <div class="text-center">
+        <h1 class="display-4"> Api Personajes</h1>
+        <label>Id Serie: </label>
+        <input type="number" id="cajaid" class="form-control" />
+        <br />
+
+        <label>Nombre: </label>
+        <input type="text" id="cajanombre" class="form-control" />
+        <br />
+
+        <label>Imagen: </label>
+        <input type="text" id="cajaimagen" class="form-control" />
+        <br />
+
+        <label>Puntucación: </label>
+        <input type="number" id="cajapuntuacion" class="form-control" />
+        <br />
+        <label>Año: </label>
+        <input type="number" id="cajaaño" class="form-control" />
+        <br />
+        <button id="botoninsert" class="btn btn-success">Insertar Serie</button>
+        <button id="botondelete" class="btn btn-danger">Borrar Serie</button>
+        <button id="buscarpersonajes" class="btn btn-success">Buscar Personajes</button>
+
+        <table class="table table-warning" id="tablaSeries">
+            <thead>
+                <tr>
+                    <th>Id Serie</th>
+                    <th>Nombre Serie</th>
+                    <th>Imagen Serie</th>
+                    <th>Puntuación Serie</th>
+                    <th>Año Serie</th>
+
+                </tr>
+            </thead>
+            <tbody></tbody>
+        </table>
+    </div>
+}
